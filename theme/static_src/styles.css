@@ -1,0 +1,9 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .nav-link {
+        @apply px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors;
+    }
+}

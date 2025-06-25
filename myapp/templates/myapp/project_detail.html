@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mx-auto px-4 py-8 dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-800">
+        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="w-full h-64 object-cover">
+        <div class="p-6">
+            <h1 class="text-3xl font-bold mb-4 dark:text-white">{{ project.title }}</h1>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">{{ project.description }}</p>
+            <div class="flex flex-wrap space-x-4">
+                <a href="{{ project.github_url }}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600">GitHub</a>
+                <a href="{{ project.live_url }}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600">Live Demo</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

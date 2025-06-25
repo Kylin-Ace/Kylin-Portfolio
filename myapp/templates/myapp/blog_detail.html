@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% url 'myapp:blog_detail' slug=post.slug %}
+<div class="container mx-auto px-4 py-8 dark:bg-gray-900">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-800">
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-64 object-cover">
+        <div class="p-6">
+            <h1 class="text-3xl font-bold mb-4 dark:text-white">{{ post.title }}</h1>
+            <p class="text-gray-700 dark:text-gray-300">{{ post.content }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

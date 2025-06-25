@@ -1,0 +1,15 @@
+.field-image img {
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-row {
+    margin-bottom: 1.5em;
+}
+
+.help {
+    color: #666;
+    font-style: italic;
+}

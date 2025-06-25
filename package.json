@@ -1,0 +1,25 @@
+{
+  "name": "django_tailwind_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "build": "tailwindcss -i ./theme/static_src/styles.css -o ./static/css/dist/styles.css --minify",
+    "watch": "tailwindcss -i ./theme/static_src/styles.css -o ./static/css/dist/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "django_tailwind_project": "file:"
+  }
+}
