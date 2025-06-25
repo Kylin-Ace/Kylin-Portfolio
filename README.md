@@ -77,4 +77,5 @@ MIT License
 
 * Tailwind UI inspirations
 * Django Docs
-                        
+## Images
+![Homepage Preview](homepage-preview.png)
