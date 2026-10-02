@@ -1,81 +1,42 @@
-# 🧑‍💻 Kylin's Developer Portfolio
+# Kylin's Developer Portfolio
 
-This is my personal developer portfolio site built with **Django**, **Tailwind CSS**, and **Python**. It showcases selected projects, a blog, and a contact form — all with a focus on clean design and smooth user experience.
+A full-stack personal portfolio and blog platform built with **Python, Django, and Tailwind CSS**.
 
----
+The project showcases selected work and includes a Django-powered content management workflow for managing projects and blog posts.
 
-## 🚀 Live Demo
+## Features
 
-[Visit My Upwork Profile](https://www.upwork.com/freelancers/kylinace)
+- Responsive portfolio homepage
+- Project showcase managed through Django admin
+- Blog with database-backed posts using Django ORM
+- Contact form using Django forms
+- Admin interface for managing site content
+- Tailwind CSS frontend
 
----
+## Tech Stack
 
-## 📁 Features
+- **Backend:** Python, Django
+- **Frontend:** HTML, Tailwind CSS, JavaScript
+- **Database:** SQLite
+- **Tools:** Git, GitHub
 
-* 🌐 **Homepage**: Responsive hero section with animated background and call-to-action buttons
-* 🧠 **About Page**: Overview of skills, tools, and technologies
-* 📚 **Blog Page**: Displays published posts using Django's ORM
-* 🛠 **Projects Section**: Dynamic list of Django admin-controlled portfolio entries
-* 📬 **Contact Page**: Functional contact form using Django's built-in forms
-
----
-
-## 🛠 Stack
-
-* **Backend**: Python, Django
-* **Frontend**: Tailwind CSS
-* **Database**: SQLite (can switch to PostgreSQL)
-* **Deployment-Ready**: Supports production setup
-
----
-
-## 🧪 Run Locally
-
-### Clone the repo
+## Run Locally
 
 ```bash
-git clone https://github.com/Kylin-Ace/django-portfolio.git
-cd django-portfolio
-```
-
-### Install dependencies
-
-```bash
+git clone https://github.com/Kylin-Ace/Kylin-Portfolio.git
+cd Kylin-Portfolio
 pip install -r requirements.txt
-```
-
-### Apply migrations & run
-
-```bash
 python manage.py migrate
 python manage.py runserver
 ```
 
-Then open: [http://localhost:8000](http://localhost:8000)
+Then open `http://localhost:8000`.
 
----
+## Project Purpose
 
-## 📸 Screenshots
+I built this project to practice full-stack web development while creating a platform I could use to present my work and manage content dynamically.
 
-Coming soon — visual previews of key pages
+## Contact
 
----
-
-## 📬 Contact
-
-Want to work together? Reach out on [Upwork](https://www.upwork.com/freelancers/kylinace) or use the contact form on the site.
-
----
-
-## 📄 License
-
-MIT License
-
----
-
-## 🙌 Acknowledgements
-
-* Tailwind UI inspirations
-* Django Docs
-## Images
-![Homepage Preview](homepage-preview.png)
+- **GitHub:** https://github.com/Kylin-Ace
+- **LinkedIn:** https://www.linkedin.com/in/emmanuel-francis-o-4bb9a437/
