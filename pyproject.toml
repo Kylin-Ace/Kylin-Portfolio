@@ -1,2 +1,15 @@
+[project]
+name = "django-tailwind-portfolio"
+version = "1.0.0"
+requires-python = ">=3.11"
+dependencies = [
+    "Django>=5.2,<5.3",
+    "dj-database-url>=2.3,<3",
+    "django-browser-reload>=1.18,<2",
+    "django-storages[s3]>=1.14,<2",
+    "Pillow>=11,<13",
+    "psycopg[binary]>=3.2,<4",
+]
+
 [tool.vercel.scripts]
 build = "npm run build"
