@@ -6,6 +6,19 @@ __pycache__/
 # C extensions
 *.so
 
+# Node and Django build output
+node_modules/
+staticfiles/
+.vercel/
+static/admin/
+static/django-browser-reload/
+/static/css/output.css
+/static/css/styles.css
+/static/js/theme.js
+.env.*
+!.env.example
+data.json
+
 # Distribution / packaging
 .Python
 build/

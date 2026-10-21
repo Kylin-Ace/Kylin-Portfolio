@@ -9,7 +9,7 @@ from io import BytesIO
 from django.core.files.base import ContentFile
 from django.utils.text import Truncator
 
-# Utility function for slug generation
+
 def generate_unique_slug(model_class, field_value, slug_field_name="slug", max_length=255):
     """
     Generate a unique slug for a given model class and field value.
@@ -161,3 +161,17 @@ class About(models.Model):
 
 class Post(models.Model):
     slug = models.SlugField(unique=True)
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=160)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return f"{self.subject} — {self.name}"

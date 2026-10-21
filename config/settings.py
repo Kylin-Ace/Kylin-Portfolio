@@ -13,18 +13,32 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+DEBUG = os.environ.get("DJANGO_DEBUG", "False" if os.environ.get("VERCEL") else "True").lower() == "true"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
+if not SECRET_KEY and DEBUG:
+    SECRET_KEY = "django-insecure-local-development-only"
+if not SECRET_KEY:
+    raise ImproperlyConfigured("Set DJANGO_SECRET_KEY in the production environment.")
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@103ljd$z_msoq4_#67arzizp9y8w(*wnxun*@jg8j-%s5wi1&'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",")
+    if host.strip()
+]
+for host_variable in ("VERCEL_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
+    host = os.environ.get(host_variable)
+    if host:
+        ALLOWED_HOSTS.append(host.removeprefix("https://").removeprefix("http://"))
+if DEBUG:
+    ALLOWED_HOSTS.extend(["localhost", "127.0.0.1", "[::1]"])
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
 
 LOGGING = {
     'version': 1,
@@ -34,16 +48,8 @@ LOGGING = {
             'class': 'logging.StreamHandler',
         },
     },
-    'loggers': {
-        'django.db.backends': {
-            'handlers': ['console'],
-            'level': 'DEBUG' if DEBUG else 'INFO',
-        },
-    },
+    'loggers': {},
 }
-
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -54,15 +60,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_browser_reload',
-    'tailwind',
     'theme',
     'myapp',
 ]
-
-TAILWIND_APP_NAME = 'theme'
-
-INTERNAL_IPS = ["127.0.0.1"]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,8 +72,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append('django_browser_reload')
+    MIDDLEWARE.append('django_browser_reload.middleware.BrowserReloadMiddleware')
+    INTERNAL_IPS = ["127.0.0.1"]
 
 ROOT_URLCONF = 'config.urls'
 
@@ -88,7 +92,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'myapp.context_processors.theme',
             ],
         },
     },
@@ -96,17 +99,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=0 if os.environ.get("VERCEL") else 600,
+            ssl_require=not DEBUG,
+        )
     }
-}
+elif DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    raise ImproperlyConfigured("Set DATABASE_URL to a persistent PostgreSQL database.")
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -122,34 +133,68 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# Media files settings
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_BUCKET = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+if not DEBUG and not MEDIA_BUCKET:
+    raise ImproperlyConfigured(
+        "Set AWS_STORAGE_BUCKET_NAME and S3-compatible storage credentials for production uploads."
+    )
 
-# Create media directories if they don't exist
-MEDIA_DIRS = ['projects', 'blog', 'about']
-for dir in MEDIA_DIRS:
-    os.makedirs(os.path.join(MEDIA_ROOT, dir), exist_ok=True)
+media_storage_options = {
+    "bucket_name": MEDIA_BUCKET,
+    "region_name": os.environ.get("AWS_S3_REGION_NAME", "auto"),
+    "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL") or None,
+    "access_key": os.environ.get("AWS_ACCESS_KEY_ID") or None,
+    "secret_key": os.environ.get("AWS_SECRET_ACCESS_KEY") or None,
+    "custom_domain": os.environ.get("AWS_S3_CUSTOM_DOMAIN") or None,
+    "querystring_auth": False,
+    "file_overwrite": False,
+}
+if MEDIA_BUCKET:
+    default_storage = {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": media_storage_options,
+    }
+else:
+    default_storage = {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    }
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
+STORAGES = {
+    "default": default_storage,
+    "staticfiles": {
+        "BACKEND": (
+            "django.contrib.staticfiles.storage.StaticFilesStorage"
+            if DEBUG
+            else "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+        ),
+    },
+}
+
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+if not DEBUG:
+    SECURE_HSTS_SECONDS = 3600
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-NPM_BIN_PATH = r"C:\Users\kylin\AppData\Local\fnm_multishells\4920_1740518234526\npm.cmd"
-
-

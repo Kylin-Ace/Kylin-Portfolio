@@ -1,110 +1,98 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}Kylin Ace — Python Developer & Automation Engineer{% endblock %}
+{% block meta_description %}I build useful software, thoughtful web experiences, and automation that gives people time back.{% endblock %}
 {% block content %}
-<!-- Hero Section with Animated Background -->
-<div class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-900 dark:from-gray-900 dark:to-indigo-900">
-    <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-30 dark:opacity-20"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-white/10 to-transparent"></div>
-    </div>
-    <div class="relative max-w-3xl mx-auto px-4 py-16 sm:px-6 lg:px-8 flex flex-col items-center justify-center min-h-[40vh]">
-        <div class="text-center">
-            <!-- Unified Hero Header with Animation -->
-            <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold mb-4 text-white drop-shadow-2xl tracking-tight leading-tight">
-                Hi, I’m <span class="text-white">Kylin</span>
+<section class="relative isolate overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-950 dark:to-blue-950/40"></div>
+    <div class="absolute -right-32 -top-32 -z-10 h-96 w-96 rounded-full bg-blue-400/10 blur-3xl"></div>
+    <div class="mx-auto grid max-w-6xl gap-14 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:py-32">
+        <div>
+            <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/80 px-3 py-1.5 text-sm font-medium text-blue-800 shadow-sm dark:border-blue-900 dark:bg-slate-900/80 dark:text-blue-200">
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                Python developer · Automation · Web
+            </p>
+            <h1 class="max-w-3xl text-5xl font-semibold leading-[1.08] tracking-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
+                I turn complex ideas into <span class="text-blue-600 dark:text-blue-400">useful software.</span>
             </h1>
-            <p class="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-blue-200 tracking-tight leading-snug">
-                Python Developer · Automation Expert · Full-Stack Builder
+            <p class="mt-7 max-w-xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+                I'm Kylin — a Python developer and automation enthusiast building clean, dependable tools and thoughtful digital experiences.
             </p>
-            <p class="max-w-xl mx-auto text-base sm:text-lg md:text-xl text-gray-800 dark:text-gray-200 mb-6 font-medium">
-                From automation to UI design — I bring ideas to life with <span class="font-bold text-blue-700 dark:text-indigo-300">Python</span> &amp; <span class="font-bold text-indigo-700 dark:text-indigo-300">Tailwind</span>
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#projects" class="btn-primary px-6 py-2 text-base font-bold rounded-lg shadow hover:scale-105 hover:bg-blue-700 transition-all duration-300">
-                    View Projects
+            <div class="mt-9 flex flex-wrap gap-3">
+                <a href="{% url 'myapp:projects' %}" class="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                    Explore my work <span aria-hidden="true">↗</span>
                 </a>
-                <a href="{% url 'myapp:contact' %}" class="btn-secondary px-6 py-2 text-base font-bold rounded-lg shadow hover:scale-105 hover:bg-indigo-700 hover:text-white transition-all duration-300">
-                    Contact Me
+                <a href="{% url 'myapp:contact' %}" class="inline-flex items-center rounded-full border border-slate-300 bg-white/70 px-5 py-3 text-sm font-semibold text-slate-800 transition hover:border-slate-400 hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:border-slate-500">
+                    Get in touch
                 </a>
+            </div>
+            <div class="mt-10 flex flex-wrap gap-x-7 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
+                <span>Python &amp; Django</span><span>Workflow automation</span><span>Product-minded design</span>
+            </div>
+        </div>
+        <div class="relative mx-auto w-full max-w-sm">
+            <div class="absolute -inset-4 rotate-3 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-500 opacity-20 blur-lg"></div>
+            <div class="relative overflow-hidden rounded-[1.75rem] border border-white/70 bg-slate-950 p-6 text-slate-100 shadow-2xl shadow-blue-950/20 dark:border-slate-800">
+                <div class="mb-8 flex items-center gap-2" aria-hidden="true"><span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span><span class="h-2.5 w-2.5 rounded-full bg-amber-300"></span><span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span><span class="ml-auto text-xs text-slate-500">what_i_build.py</span></div>
+                <p class="font-mono text-sm leading-8"><span class="text-fuchsia-300">class</span> <span class="text-amber-200">GoodSoftware</span>:<br>
+                    &nbsp;&nbsp;<span class="text-blue-300">purpose</span> = <span class="text-emerald-300">"solve real problems"</span><br>
+                    &nbsp;&nbsp;<span class="text-blue-300">details</span> = [<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-emerald-300">"less busywork"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-emerald-300">"clear, useful design"</span>,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-emerald-300">"reliable by default"</span>,<br>
+                    &nbsp;&nbsp;]<br>
+                    &nbsp;&nbsp;<span class="text-fuchsia-300">def</span> <span class="text-amber-200">ship</span>(self):<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-fuchsia-300">return</span> <span class="text-emerald-300">"something that helps"</span>
+                </p>
+                <div class="mt-8 border-t border-slate-800 pt-4 text-xs text-slate-500">Thoughtful engineering, from idea to launch.</div>
             </div>
         </div>
     </div>
-    <!-- Animated Shapes -->
-    <div class="absolute -bottom-32 left-0 right-0 pointer-events-none animate-fade-in">
-        <svg viewBox="0 0 1428 174" class="w-full text-white dark:text-gray-900 fill-current">
-            <path d="M0 87h1440v87H0z"/>
-            <path d="M1428 174V75.7c-27.3 5.3-54.5 10.7-81.8 16-54.5 10.7-109 21.3-163.5 32-54.5 10.7-109 21.3-163.5 32-54.5 10.7-109 21.3-163.5 32-54.5 10.7-109 21.3-163.5 32-54.5 10.7-109 21.3-163.5 32-54.5 10.7-109 21.3-163.5 32C167.2 93.3 83.6 46.7 0 0v174h1428z"/>
-        </svg>
-    </div>
-</div>
+</section>
 
-<!-- Rest of the content -->
-<div class="container mx-auto px-4 py-16">
-    <!-- Featured Projects Section with Improved Cards -->
-    <section id="projects" class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">Featured Projects</h2>
-        {% if featured_projects %}
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {% for project in featured_projects %}
-            <div class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                <div class="relative overflow-hidden">
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}"
-                         class="w-full h-40 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
+<section class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24" aria-labelledby="projects-heading">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-5">
+        <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-blue-600 dark:text-blue-400">Selected work</p>
+            <h2 id="projects-heading" class="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white sm:text-4xl">A few things I've built</h2>
+        </div>
+        <a href="{% url 'myapp:projects' %}" class="text-sm font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300">All projects <span aria-hidden="true">→</span></a>
+    </div>
+    {% if featured_projects %}
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for project in featured_projects %}
+        <article class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-900/5 dark:border-slate-800 dark:bg-slate-900">
+            <a href="{% url 'myapp:project_detail' project.slug %}" class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
+                {% if project.image and project.image.name != 'defaults/project.png' %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="aspect-[16/10] w-full object-cover transition duration-500 group-hover:scale-[1.02]" loading="lazy">
+                {% else %}
+                <img src="{% static 'img/project-placeholder.svg' %}" alt="" class="aspect-[16/10] w-full object-cover" loading="lazy">
+                {% endif %}
                 <div class="p-6">
-                    <h3 class="text-xl font-bold mb-3 text-gray-900 dark:text-white truncate">
-                        <a href="{% url 'myapp:project_detail' project.slug %}" 
-                           class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                            {{ project.title }}
-                        </a>
-                    </h3>
-                    <p class="text-gray-600 dark:text-gray-300 mb-4">{{ project.description|truncatewords:20 }}</p>
-                    <div class="flex items-center justify-between">
-                        <div class="flex space-x-2">
-                            {% for tech in project.technologies.all %}
-                            <span class="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                {{ tech.name }}
-                            </span>
-                            {% endfor %}
-                        </div>
-                        <a href="{% url 'myapp:project_detail' project.slug %}" 
-                           class="text-blue-600 dark:text-blue-400 hover:underline">
-                            Learn more →
-                        </a>
-                    </div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">{% if project.is_featured %}Featured project{% else %}Project{% endif %}</p>
+                    <h3 class="mt-2 text-xl font-semibold tracking-tight text-slate-950 transition group-hover:text-blue-700 dark:text-white dark:group-hover:text-blue-300">{{ project.title }}</h3>
+                    <p class="mt-3 line-clamp-3 text-sm leading-6 text-slate-600 dark:text-slate-400">{{ project.description|truncatewords:28 }}</p>
+                    <span class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">View project <span aria-hidden="true" class="transition group-hover:translate-x-1">→</span></span>
                 </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="text-center text-gray-600 dark:text-gray-400">No projects available at the moment.</p>
-        {% endif %}
-    </section>
-
-    <!-- Hire Me Section -->
-    <section class="flex justify-center mb-12">
-        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg px-6 py-8 max-w-md w-full text-center border border-green-100 dark:border-green-900 animate-fade-in">
-            <div class="flex justify-center mb-2">
-                <!-- Briefcase Icon -->
-                <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-green-100 dark:bg-green-900 animate-bounce">
-                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-7 4h8a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v7a2 2 0 002 2z"/>
-                    </svg>
-                </span>
-            </div>
-            <h2 class="text-2xl font-bold mb-2 text-gray-900 dark:text-white">Let’s Work Together</h2>
-            <p class="text-base text-gray-700 dark:text-gray-300 mb-4">
-                I help businesses automate, build, and scale with clean code and thoughtful design.<br>
-                <span class="font-semibold text-green-700 dark:text-green-400">Ready to get started?</span>
-            </p>
-            <a href="https://www.upwork.com/freelancers/kylinace"
-               target="_blank"
-               rel="noopener"
-               class="inline-block px-6 py-2 bg-green-600 text-white font-bold rounded-lg shadow hover:scale-105 hover:bg-green-700 transition-all duration-300 text-base">
-                Hire Me 🚀
             </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="rounded-2xl border border-dashed border-slate-300 px-6 py-12 text-center dark:border-slate-700">
+        <p class="text-slate-600 dark:text-slate-300">I'm preparing a few projects to share here. Check back soon.</p>
+    </div>
+    {% endif %}
+</section>
+
+<section class="border-y border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900/50">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:px-8 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+            <p class="text-sm font-semibold uppercase tracking-[0.16em] text-blue-600 dark:text-blue-400">Have a project in mind?</p>
+            <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-950 dark:text-white">Let's make something useful.</h2>
+            <p class="mt-3 max-w-xl text-slate-600 dark:text-slate-400">From a small automation to a complete web experience, let's talk through what you need.</p>
         </div>
-    </section>
-</div>
+        <a href="{% url 'myapp:contact' %}" class="inline-flex items-center justify-center gap-2 rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 dark:bg-white dark:text-slate-950 dark:hover:bg-blue-200">Start a conversation <span aria-hidden="true">↗</span></a>
+    </div>
+</section>
 {% endblock %}

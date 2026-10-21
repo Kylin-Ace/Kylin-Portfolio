@@ -3,7 +3,7 @@
     <ul class="inline-flex items-center gap-1">
         {% if page_obj.has_previous %}
         <li>
-            <a href="?page=1" 
+            <a href="?{% if query %}q={{ query|urlencode }}&amp;{% endif %}page=1"
                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
                       dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 
                       hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300
@@ -15,7 +15,7 @@
             </a>
         </li>
         <li>
-            <a href="?page={{ page_obj.previous_page_number }}" 
+            <a href="?{% if query %}q={{ query|urlencode }}&amp;{% endif %}page={{ page_obj.previous_page_number }}"
                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
                       dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 
                       hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
@@ -38,7 +38,7 @@
             </li>
             {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
             <li>
-                <a href="?page={{ num }}" 
+                <a href="?{% if query %}q={{ query|urlencode }}&amp;{% endif %}page={{ num }}"
                    class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
                           dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 
                           hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
@@ -50,7 +50,7 @@
 
         {% if page_obj.has_next %}
         <li>
-            <a href="?page={{ page_obj.next_page_number }}" 
+            <a href="?{% if query %}q={{ query|urlencode }}&amp;{% endif %}page={{ page_obj.next_page_number }}"
                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
                       dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 
                       hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
@@ -61,7 +61,7 @@
             </a>
         </li>
         <li>
-            <a href="?page={{ page_obj.paginator.num_pages }}" 
+            <a href="?{% if query %}q={{ query|urlencode }}&amp;{% endif %}page={{ page_obj.paginator.num_pages }}"
                class="inline-flex items-center justify-center w-10 h-10 rounded-lg border border-gray-300 
                       dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 
                       hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib import messages
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from .models import Project, BlogPost, About
+from .models import Project, BlogPost, About, ContactMessage
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
@@ -12,6 +12,7 @@ class ProjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     readonly_fields = ('created_at', 'updated_at')
     ordering = ('-created_at',)
+    list_editable = ('is_featured',)
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
@@ -24,8 +25,10 @@ class BlogPostAdmin(admin.ModelAdmin):
     ordering = ('-created_at',)
 
     def save_model(self, request, obj, form, change):
-        if not change and obj.status == BlogPost.PUBLISHED:
+        if obj.status == BlogPost.PUBLISHED and not obj.published_at:
             obj.published_at = timezone.now()
+        elif obj.status != BlogPost.PUBLISHED:
+            obj.published_at = None
         super().save_model(request, obj, form, change)
 
 @admin.register(About)
@@ -73,3 +76,17 @@ class AboutAdmin(admin.ModelAdmin):
             'all': ('css/admin/about.css',)
         }
         js = ('js/admin/about.js',)
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = ("subject", "name", "email", "created_at")
+    search_fields = ("subject", "name", "email", "message")
+    readonly_fields = ("name", "email", "subject", "message", "created_at")
+    ordering = ("-created_at",)
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False

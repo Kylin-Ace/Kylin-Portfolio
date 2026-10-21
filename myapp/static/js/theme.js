@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initializeTheme() {
     const themeToggle = document.getElementById('themeToggle');
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
@@ -29,11 +29,15 @@ document.addEventListener('DOMContentLoaded', function () {
         moonIcon.classList.toggle('hidden', isDark);
     }
 
-    // Initialize
     initTheme();
 
-    // Add event listener
     if (themeToggle) {
         themeToggle.addEventListener('click', toggleTheme);
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTheme, { once: true });
+} else {
+    initializeTheme();
+}

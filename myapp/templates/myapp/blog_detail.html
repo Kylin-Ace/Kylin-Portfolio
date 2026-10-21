@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
+{% block title %}{{ post.title }} — Kylin Ace{% endblock %}
+{% block meta_description %}{{ post.excerpt|default:post.content|truncatewords:25 }}{% endblock %}
 {% block content %}
-{% url 'myapp:blog_detail' slug=post.slug %}
-<div class="container mx-auto px-4 py-8 dark:bg-gray-900">
-    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden dark:bg-gray-800">
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-64 object-cover">
-        <div class="p-6">
-            <h1 class="text-3xl font-bold mb-4 dark:text-white">{{ post.title }}</h1>
-            <p class="text-gray-700 dark:text-gray-300">{{ post.content }}</p>
-        </div>
-    </div>
-</div>
+<article class="mx-auto max-w-3xl px-5 py-14 sm:px-8 sm:py-20">
+    <a href="{% url 'myapp:blog' %}" class="text-sm font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300">← Back to writing</a>
+    <header class="mt-8 border-b border-slate-200 pb-8 dark:border-slate-800">
+        <time class="text-sm text-slate-500 dark:text-slate-400" datetime="{{ post.published_at|default:post.created_at|date:'Y-m-d' }}">{{ post.published_at|default:post.created_at|date:"F j, Y" }}</time>
+        <h1 class="mt-4 text-4xl font-semibold leading-tight tracking-tight text-slate-950 dark:text-white sm:text-5xl">{{ post.title }}</h1>
+        {% if post.excerpt %}<p class="mt-5 text-xl leading-8 text-slate-600 dark:text-slate-300">{{ post.excerpt }}</p>{% endif %}
+    </header>
+    {% if post.image %}<img src="{{ post.image.url }}" alt="{{ post.title }}" class="mt-8 max-h-[28rem] w-full rounded-2xl object-cover" fetchpriority="high">{% endif %}
+    <div class="prose prose-slate mt-9 max-w-none leading-8 dark:prose-invert">{{ post.content|linebreaks }}</div>
+</article>
 {% endblock %}
