@@ -44,8 +44,8 @@ Vercel runs Django as a Python Function, serves collected and content-hashed sta
    | `AWS_S3_ADDRESSING_STYLE` | Use `path` for Supabase S3. The settings default to `path` when a custom endpoint is configured. |
 
    Leave `DJANGO_DEBUG` unset in Vercel. Production mode is selected automatically there.
-4. Deploy. Vercel detects `manage.py` and `config.wsgi.application`; its Django integration runs `collectstatic` and serves files under `/static/`. The configured build script runs `npm run build` first to create the Tailwind stylesheet.
-5. Apply migrations against the production database before relying on the site. Run `python manage.py migrate` from an environment configured with the production `DATABASE_URL`, `DJANGO_SECRET_KEY`, and media-storage variables.
+4. Deploy. Vercel detects `manage.py` and `config.wsgi.application`; its Django integration runs `collectstatic` and serves files under `/static/`. The configured build script installs the locked npm dependencies and builds the Tailwind stylesheet. On Production deployments only, it also applies Django migrations using the Production environment variables.
+5. Confirm the Production build completed successfully before relying on the site. If migrations fail, Vercel marks the build as failed; review the build log and resolve the database connection or migration error.
 6. If you imported existing users as described below, sign in with the imported admin account. Otherwise, create the production admin account with `python manage.py createsuperuser` from that same configured environment.
 
 Contact form submissions are saved in the database and reviewed under **Contact messages** in `/admin/`. Email notifications are not configured; add an email provider later if you want new messages forwarded to your inbox.

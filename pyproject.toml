@@ -12,4 +12,4 @@ dependencies = [
 ]
 
 [tool.vercel.scripts]
-build = "npm ci --include=dev && npm run build"
+build = "python scripts/vercel_build.py"
