@@ -156,6 +156,10 @@ media_storage_options = {
     "bucket_name": MEDIA_BUCKET,
     "region_name": os.environ.get("AWS_S3_REGION_NAME", "auto"),
     "endpoint_url": os.environ.get("AWS_S3_ENDPOINT_URL") or None,
+    "addressing_style": os.environ.get(
+        "AWS_S3_ADDRESSING_STYLE",
+        "path" if os.environ.get("AWS_S3_ENDPOINT_URL") else "auto",
+    ),
     "access_key": os.environ.get("AWS_ACCESS_KEY_ID") or None,
     "secret_key": os.environ.get("AWS_SECRET_ACCESS_KEY") or None,
     "custom_domain": os.environ.get("AWS_S3_CUSTOM_DOMAIN") or None,

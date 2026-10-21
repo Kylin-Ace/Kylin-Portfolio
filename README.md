@@ -26,7 +26,7 @@ For frontend development, run `npm run watch` in a second terminal.
 Vercel runs Django as a Python Function, serves collected and content-hashed static assets through its CDN, and uses the build script in `pyproject.toml` to compile Tailwind. A production deployment also needs a persistent PostgreSQL database and S3-compatible object storage for uploaded images; a Vercel Function's local disk is not persistent.
 
 1. Push this project to a Git repository and import it into Vercel. Keep the repository root as the project root.
-2. Create a managed PostgreSQL database and an S3-compatible media bucket. Neon (using its pooled connection URL) and Cloudflare R2 are reasonable starting options; configure the bucket for public read access or attach a public custom domain so portfolio images can be displayed.
+2. Create a managed PostgreSQL database and an S3-compatible media bucket. This project uses Neon for PostgreSQL and Supabase Storage Free for media. The Supabase free plan includes 1 GB of file storage; free projects may be paused after a week of inactivity. The `media` bucket is public and restricted to image MIME types so portfolio images can be displayed. Supabase S3 access keys grant full access to every bucket in the project and bypass Storage RLS; keep them only in server-side environment variables.
 3. Add these environment variables in the Vercel project settings for **Production, Preview, and Development** as appropriate:
 
    | Variable | Value |
@@ -35,12 +35,13 @@ Vercel runs Django as a Python Function, serves collected and content-hashed sta
    | `DATABASE_URL` | The PostgreSQL connection URL from your database provider. |
    | `DJANGO_ALLOWED_HOSTS` | Optional comma-separated custom domains. Vercel's `VERCEL_URL` and `VERCEL_PROJECT_PRODUCTION_URL` hostnames are allowed automatically. |
    | `CSRF_TRUSTED_ORIGINS` | Comma-separated full origins for custom domains, including `https://`, for example `https://example.com,https://www.example.com`. |
-   | `AWS_STORAGE_BUCKET_NAME` | The bucket name used for uploaded media. |
-   | `AWS_ACCESS_KEY_ID` | Storage access key. |
-   | `AWS_SECRET_ACCESS_KEY` | Storage secret key. |
-   | `AWS_S3_ENDPOINT_URL` | S3-compatible endpoint; for R2, use `https://<account-id>.r2.cloudflarestorage.com`. |
-   | `AWS_S3_REGION_NAME` | Provider region; use `auto` for R2. |
-   | `AWS_S3_CUSTOM_DOMAIN` | Optional public media hostname, without `https://`. |
+   | `AWS_STORAGE_BUCKET_NAME` | Supabase bucket name: `media`. |
+   | `AWS_ACCESS_KEY_ID` | Supabase S3 access key ID. |
+   | `AWS_SECRET_ACCESS_KEY` | Supabase S3 secret access key. |
+   | `AWS_S3_ENDPOINT_URL` | Supabase S3 endpoint from Storage → S3 Configuration. |
+   | `AWS_S3_REGION_NAME` | Supabase S3 region from Storage → S3 Configuration. |
+   | `AWS_S3_CUSTOM_DOMAIN` | Public URL prefix, without `https://`, e.g. `<project-ref>.supabase.co/storage/v1/object/public/media`. |
+   | `AWS_S3_ADDRESSING_STYLE` | Use `path` for Supabase S3. The settings default to `path` when a custom endpoint is configured. |
 
    Leave `DJANGO_DEBUG` unset in Vercel. Production mode is selected automatically there.
 4. Deploy. Vercel detects `manage.py` and `config.wsgi.application`; its Django integration runs `collectstatic` and serves files under `/static/`. The configured build script runs `npm run build` first to create the Tailwind stylesheet.
