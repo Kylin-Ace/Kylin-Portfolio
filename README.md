@@ -29,6 +29,8 @@ python manage.py runserver
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000). These settings are for local development.
 
+To build the site’s Tailwind styles, run `npm ci` and then `npm run build` from the repository root. The API and Python tests run without Node.js.
+
 ## Marketplace listings API
 
 A small API for managing your own marketplace listings. It uses sample data you create locally and runs on the same SQLite database as the blog.
