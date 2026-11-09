@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'myapp',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'listings',
 ]
 
 TAILWIND_APP_NAME = 'theme'

@@ -1,4 +1,5 @@
-Django==5.2.3
+Django==5.2.19
 django-browser-reload==1.18.0
 django-tailwind==4.0.1
 Pillow==11.1.0
+djangorestframework==3.17.2

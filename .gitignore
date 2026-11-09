@@ -210,3 +210,6 @@ __marimo__/
 *.jpg
 *.png
 *.jpeg
+
+# Generated JavaScript dependencies
+node_modules/
