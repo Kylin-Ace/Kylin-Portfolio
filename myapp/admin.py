@@ -24,7 +24,7 @@ class BlogPostAdmin(admin.ModelAdmin):
     ordering = ('-created_at',)
 
     def save_model(self, request, obj, form, change):
-        if not change and obj.status == BlogPost.PUBLISHED:
+        if obj.status == BlogPost.PUBLISHED and obj.published_at is None:
             obj.published_at = timezone.now()
         super().save_model(request, obj, form, change)
 

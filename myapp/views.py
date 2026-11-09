@@ -36,13 +36,13 @@ def project_detail(request, slug):
     })
 
 def blog(request):
-    """List view for published blog posts with pagination"""
-    posts = BlogPost.objects.filter(status='published').order_by('-published_at')
+    """List published blog posts"""
+    posts = BlogPost.objects.filter(status=BlogPost.PUBLISHED).order_by('-published_at')
     return render(request, 'myapp/blog.html', {'posts': posts})
 
 def blog_detail(request, slug):
-    """Detail view for a single blog post with caching"""
-    post = get_object_or_404(BlogPost, slug=slug)
+    """Show a published blog post"""
+    post = get_object_or_404(BlogPost, slug=slug, status=BlogPost.PUBLISHED)
     return render(request, 'myapp/blog_detail.html', {'post': post})
 
 def about(request):
